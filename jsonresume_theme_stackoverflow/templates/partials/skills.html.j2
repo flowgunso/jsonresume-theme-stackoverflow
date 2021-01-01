@@ -1,34 +1,34 @@
-{{#if resume.skills.length}}
+{% if skills %}
 <section class="section">
 	<header>
 		<h2 class='section-title'>Skills</h2>
 	</header>
 	<section id="skills">
-		{{#each resume.skills}}
+		{% for skill in  skills %}
 		<div class="item">
-			{{#if name}}
+			{% if skill['name'] %}
 			<h3 class="name">
-				{{name}}
+				{{ skill['name'] }}
 			</h3>
-			{{/if}} {{#if level}}
-			<div class="level {{toLowerCase level}}">
-				{{#if levelDisplay}}
-				<em>{{levelDisplay}}</em>
-				{{else}}
-				<em>{{level}}</em>
-				{{/if}}
+			{% endif %} {% if skill['level'] %}
+			<div class="level {{ skill['level'] | lower }}">
+				{% if skill['levelDisplay'] %}
+				<em>{{ skill['levelDisplay'] }}</em>
+				{% else %}
+				<em>{{ skill['level'] }}</em>
+				{% endif %}
 				<div class="bar"></div>
 			</div>
-			{{/if}}
-			{{#if keywords.length}}
+			{% endif %}
+			{% if skill['keywords'] %}
 			<ul class="keywords">
-				{{#each keywords}}
-				<li>{{.}}</li>
-				{{/each}}
+				{% for keyword in skill['keywords'] %}
+				<li>{{ keyword }}</li>
+				{% endfor %}
 			</ul>
-			{{/if}}
+			{% endif %}
 		</div>
-		{{/each}}
+		{% endfor %}
 	</section>
 </section>
-{{/if}}
+{% endif %}

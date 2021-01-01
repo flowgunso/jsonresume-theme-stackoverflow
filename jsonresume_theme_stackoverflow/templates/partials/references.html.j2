@@ -1,23 +1,23 @@
-{{#if resume.references.length}}
+{% if references %}
 <section class="section">
   <header>
     <h2 class='section-title'>References</h2>
   </header>
   <section id="references">
-    {{#each resume.references}}
+    {% for reference in references %}
     <div class="item">
-      {{#if reference}}
+      {% if reference['reference'] %}
       <blockquote class="reference">
-        &#8220;&#32;{{reference}}&#32;&#8221;
+        &#8220;&#32;{{ reference['reference'] }}&#32;&#8221;
       </blockquote>
-      {{/if}}
-      {{#if name}}
+      {% endif %}
+      {% if reference['name'] %}
       <div class="name">
-        {{name}}
+        {{ reference['name'] }}
       </div>
-      {{/if}}
+      {% endif %}
     </div>
-    {{/each}}
+    {% endfor %}
   </section>
 </section>
-{{/if}}
+{% endif %}

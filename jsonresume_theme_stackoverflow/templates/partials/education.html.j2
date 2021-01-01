@@ -1,91 +1,91 @@
-{{#if resume.education.length}}
+{% if education %}
 <section class="section">
   <header>
-    <h2 class='section-title'>Education <span class="item-count">({{resume.education.length}})</span></h2>
+    <h2 class='section-title'>Education <span class="item-count">({{ education | length }})</span></h2>
   </header>
 
   <section id="education">
-    {{#each resume.education}}
+    {% for education_item in education %}
     <section class="education-item">
-      {{#if summary}}
-        {{#if @first}}
-        <input id="education-item-{{@index}}" type="checkbox" class="toggle-item" checked="checked" />
-        {{else}}
-        <input id="education-item-{{@index}}" type="checkbox" class="toggle-item" />
-        {{/if}}
-        <label for="education-item-{{@index}}"></label>
-      {{/if}}
+      {% if education_item['summary'] %}
+        {% if loop.first %}
+        <input id="education-item-{{ loop.index }}" type="checkbox" class="toggle-item" checked="checked" />
+        {% else %}
+        <input id="education-item-{{ loop.index }}" type="checkbox" class="toggle-item" />
+        {% endif %}
+        <label for="education-item-{{ loop.index }}"></label>
+      {% endif %}
       <header class="clear">
         <div class="header-left">
-          {{#if studyType}}
+          {% if education_item['studyType'] %}
           <div class="studyType">
-            {{studyType}}
+            {{ education_item['studyType'] }}
           </div>
-          {{/if}}
-          {{#if area}}
+          {% endif %}
+          {% if education_item['area'] %}
           <div class="area">
-            {{area}}
+            {{ education_item['area'] }}
           </div>
-          {{/if}}
-          {{#if institution}}
+          {% endif %}
+          {% if education_item['institution'] %}
           <div class="institution">
-            {{institution}}
+            {{ education_item['institution'] }}
           </div>
-          {{/if}}
+          {% endif %}
         </div>
         <div class="date">
-          {{#if startDate}}
+          {% if education_item['startDate'] %}
           <span class="startDate">
-          {{Y startDate}}
+          {{ education_item['startDate'] | format_date("%Y") }}
           </span>
-          {{/if}}
-          {{#if endDate}}
+          {% endif %}
+          {% if education_item['endDate'] %}
           <span class="endDate">
-          - {{Y endDate}}
+          - {{ education_item['endDate'] | format_date("%Y") }}
           </span>
-          {{else}}
+          {% else %}
           <span class="endDate">
           - Current
           </span>
-          {{/if}}
+          {% endif %}
         </div>
       </header>
 
-      {{#location}}
+      {% if education_item['location'] %}
       <span class="location">
         <span class="fas fa-map-marker-alt"></span>
-        {{#if city}}
-        <span class="city">{{city}}, </span>
-        {{/if}}
-        {{#if countryCode}}
-        <span class="countryCode">({{countryCode}})</span>
-        {{/if}}
-        {{#if region}}
-        <span class="region">{{region}}</span>
-        {{/if}}
+        {% if education_item['city'] %}
+        <span class="city">{{ education_item['city'] }}, </span>
+        {% endif %}
+        {% if education_item['countryCode'] %}
+        <span class="countryCode">({{ education_item['countryCode'] }})</span>
+        {% endif %}
+        {% if education_item['region'] %}
+        <span class="region">{{ education_item['region'] }}</span>
+        {% endif %}
       </span>
-      {{/location}}
+      {% endif %}
 
-      {{#if courses.length}}
+      {% if education_item['courses'] %}
       <ul class="courses">
-        {{#each courses}}
-        <li>{{.}}</li>
-        {{/each}}
+        {% for course in education_item['courses'] %}
+        <li>{{ course }}</li>
+        {% endfor %}
       </ul>
-      {{/if}}
+      {% endif %}
 
       <div class="item">
-        {{#if gpa}}
+        {% if education_item['gpa'] %}
         <div class='gpa'>
-          <strong> Grade:</strong> <span>{{gpa}}</span>
+          <strong> Grade:</strong> <span>{{ education_item['gpa'] }}</span>
         </div>
-        {{/if}}
-        {{#if summary}}
-          <div class="summary">{{paragraphSplit summary}}</div>
-        {{/if}}
+        {% endif %}
+        {% if education_item['summary'] %}
+          <div class="summary">{{ education_item['summary'] | replace("\r\n", "<br>") | replace("\n", "<br>") | replace("\r", "<br>") }}</div>
+        {% endif %}
       </div>
     </section>
-    {{/each}}
+    {% endfor %}
   </section>
 </section>
-{{/if}}
+{% endif %}

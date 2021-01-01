@@ -1,0 +1,4 @@
+
+
+class ObjectIsNotADate(Exception):
+    pass

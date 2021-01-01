@@ -3,27 +3,28 @@
   <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>{{#resume.basics}}{{name}}{{/resume.basics}}</title>
+  <title>{% if basics %}{{ basics['name'] }}{% endif %}</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+
   <style>
-  {{{css}}}
+  {% include 'style.css' %}
   </style>
   
   </head>
   <body>
   
   <div id="resume">
-    {{> basics }}
-    {{> skills }}
-    {{> work }}
-    {{> projects }}
-    {{> volunteer }}
-    {{> education }}
-    {{> awards }}
-    {{> publications }}
-    {{> languages }}
-    {{> interests }}
-    {{> references }}
+    {% include 'partials/basics.html.j2' %}
+    {% include 'partials/skills.html.j2' %}
+    {% include 'partials/work.html.j2' %}
+    {% include 'partials/projects.html.j2' %}
+    {% include 'partials/volunteer.html.j2' %}
+    {% include 'partials/education.html.j2' %}
+    {% include 'partials/awards.html.j2' %}
+    {% include 'partials/publications.html.j2' %}
+    {% include 'partials/languages.html.j2' %}
+    {% include 'partials/interests.html.j2' %}
+    {% include 'partials/references.html.j2' %}
 
   </body>
 </html>

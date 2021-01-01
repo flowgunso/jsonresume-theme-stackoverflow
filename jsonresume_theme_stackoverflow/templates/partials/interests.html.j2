@@ -1,28 +1,28 @@
-{{#if resume.interests.length}}
+{% if interests %}
 <section class="section">
   <header>
     <h2 class='section-title' class='section-title'>Interests</h2>
   </header>
   <section id="interests">
-    {{#each resume.interests}}
+    {% for interest in interests %}
     <div class="item">
-      {{#if name}}
+      {% if interest['name'] %}
       <h3 class="name">
-        {{name}}
+        {{ interest['name'] }}
       </h3>
-      {{/if}}
-      {{#if keywords.length}}
+      {% endif %}
+      {% if interest['keywords'] %}
       <ul class="keywords">
-        {{#each keywords}}
-        <li>{{.}}</li>
-        {{/each}}
+        {% for keyword in interest['keywords'] %}
+        <li>{{ keyword }}</li>
+        {% endfor %}
       </ul>
-      {{/if}}
-      {{#if summary}}
-        <div class="summary">{{paragraphSplit summary}}</div>
-      {{/if}}
+      {% endif %}
+      {% if interest['summary'] %}
+        <div class="summary">{{ interest['summary'] | replace("\r\n", "<br>") | replace("\n", "<br>") | replace("\r", "<br>") }}</div>
+      {% endif %}
     </div>
-    {{/each}}
+    {% endfor %}
   </section>
 </section>
-{{/if}}
+{% endif %}

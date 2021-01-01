@@ -1,47 +1,47 @@
-{{#if resume.awards.length}}
+{% if awards %}
 <section class="section">
   <header>
     <h2 class='section-title'>Awards</h2>
   </header>
   <section id="awards">
-    {{#each resume.awards}}
+    {% for award in awards %}
     <section class="award-item">
-      {{#if summary}}
-        {{#if @first}}
-        <input id="award-item-{{@index}}" type="checkbox" class="toggle-item" checked="checked" />
-        {{else}}
-        <input id="award-item-{{@index}}" type="checkbox" class="toggle-item" />
-        {{/if}}
-        <label for="award-item-{{@index}}"></label>
-      {{/if}}
+      {% if award['summary'] %}
+        {% if loop.first %}
+        <input id="award-item-{{ loop.index }}" type="checkbox" class="toggle-item" checked="checked" />
+        {% else %}
+        <input id="award-item-{{ loop.index }}" type="checkbox" class="toggle-item" />
+        {% endif %}
+        <label for="award-item-{{ loop.index }}"></label>
+      {% endif %}
 
       <header class="clear">
         <div class="header-left">
-          {{#if title}}
+          {% if award['title'] %}
           <div class="title">
-            {{title}}
+            {{ award['title'] }}
           </div>
-          {{/if}}
-          {{#if awarder}}
+          {% endif %}
+          {% if award['awarder'] %}
           <div class="awarder">
-            {{awarder}}
+            {{ award['awarder'] }}
           </div>
-          {{/if}}
+          {% endif %}
         </div>
-        {{#if date}}
+        {% if award['date'] %}
         <div class="date">
-          {{Y date}}
+          {{ award['date'] | format_date("%Y") }}
         </div>
-        {{/if}}
+        {% endif %}
       </header>
       
       <div class="item">
-        {{#if summary}}
-          <div class="summary">{{paragraphSplit summary}}</div>
-        {{/if}}
+        {% if award['summary'] %}
+          <div class="summary">{{ award['summary'] | replace("\r\n", "<br>") | replace("\n", "<br>") | replace("\r", "<br>") }}</div>
+        {% endif %}
       </div>
     </section>
-    {{/each}}
+    {% endfor %}
   </section>
 </section>
-{{/if}}
+{% endif %}

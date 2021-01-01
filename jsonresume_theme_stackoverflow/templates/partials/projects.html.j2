@@ -1,79 +1,79 @@
-{{#if resume.projects.length}}
+{% if projects %}
 <section class="section">
   <header>
-    <h2 class='section-title'>Projects <span class="item-count">({{resume.projects.length}})</span></h2>
+    <h2 class='section-title'>Projects <span class="item-count">({{ projects | length }})</span></h2>
   </header>
   <section id="projects">
-    {{#each resume.projects}}
+    {% for project in projects %}
     <section class="project-item">
-      {{#if summary}}
-        {{#if @first}}
-        <input id="project-item-{{@index}}" type="checkbox" class="toggle-item" checked="checked" />
-        {{else}}
-        <input id="project-item-{{@index}}" type="checkbox" class="toggle-item" />
-        {{/if}}
-        <label for="project-item-{{@index}}"></label>
-      {{/if}}
+      {% if project['summary'] %}
+        {% if loop.first %}
+        <input id="project-item-{{ loop.index }}" type="checkbox" class="toggle-item" checked="checked" />
+        {% else %}
+        <input id="project-item-{{ loop.index }}" type="checkbox" class="toggle-item" />
+        {% endif %}
+        <label for="project-item-{{ loop.index }}"></label>
+      {% endif %}
 
-      {{#if name}}
+      {% if project['name'] %}
       <header class="clear">
-        {{#if name}}
-        <div class="position">{{name}}</div>
-        {{/if}}
-        {{#if startDate}}
+        {% if project['name'] %}
+        <div class="position">{{ project['name'] }}</div>
+        {% endif %}
+        {% if project['startDate'] %}
         <div class="date">
-          <span class="startDate">{{MY startDate}}</span>
-          {{#if endDate}}
-          <span class="endDate">- {{MY endDate}}</span>
-          {{else}}
+          <span class="startDate">{{ project['startDate'] | format_date("%b %Y") }}</span>
+          {% if project['endDate'] %}
+          <span class="endDate">- {{ project['endDate'] | format_date("%b %Y") }}</span>
+          {% else %}
           <span class="endDate">- Current</span>
-          {{/if}}
+          {% endif %}
         </div>
-        {{/if}}
+        {% endif %}
       </header>
-      {{/if}}
-      {{#location}}
+      {% endif %}
+      {% if project['location'] %}
       <span class="location">
       <span class="fas fa-map-marker-alt"></span>
-      {{#if city}}
-      <span class="city">{{city}},</span>
-      {{/if}}
-      {{#if countryCode}}
-      <span class="countryCode">({{countryCode}})</span>
-      {{/if}}
-      {{#if region}}
+      {% if project['city'] %}
+      <span class="city">{{ project['city'] }},</span>
+      {% endif %}
+      {% if project['countryCode'] %}
+      <span class="countryCode">({{ project['countryCode'] }})</span>
+      {% endif %}
+      {% if project['region'] %}
       <span class="region">
-      {{region}}
+      {{ project['region'] }}
       </span>
-      {{/if}}
+      {% endif %}
       </span>
-      {{/location}}
-      {{#if url}}
+      {% endif %}
+      {% if project['url'] %}
       <span class="website">
-        <a target="_blank" href="{{url}}">{{url}}</a>
+        <a target="_blank" href="{{ project['url'] }}">{{ project['url'] }}</a>
       </span>
-      {{/if}}
-      {{#if keywords.length}}
+      {% endif %}
+      {% if project['keywords'] %}
       <ul class="keywords">
-        {{#each keywords}}
-          <li>{{.}}</li>
-        {{/each}}
+        {% for keyword in project['keywords'] %}
+          <li>{{ keyword }}</li>
+        {% endfor %}
       </ul>
-      {{/if}}
+      {% endif %}
       <div class="item">
-        {{#if summary}}
-          <div class="summary">{{paragraphSplit summary}}</div>
-        {{/if}}
-        {{#if highlights.length}}
+        {% if project['summary'] %}
+          <div class="summary">{{ project['summary'] | replace("\r\n", "<br>") | replace("\n", "<br>") | replace("\r", "<br>") }}</div>
+        {% endif %}
+        {% if project['highlights'] %}
         <ul class="highlights">
-          {{#each highlights}}
-            <li>{{paragraphSplit .}}</li>
-          {{/each}}
+          {% for  highlight in project['highlights'] %}
+            <li>{{ highlight | replace("\r\n", "<br>") | replace("\n", "<br>") | replace("\r", "<br>") }}</li>
+          {% endfor %}
         </ul>
-        {{/if}}
+        {% endif %}
       </div>
     </section>
-    {{/each}}
+    {% endfor %}
   </section>
 </section>
-{{/if}}
+{% endif %}

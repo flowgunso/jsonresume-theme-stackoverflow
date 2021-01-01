@@ -1,60 +1,60 @@
-{{#if resume.publications.length}}
+{% if publications %}
 <section class="section">
   <header>
     <h2 class='section-title'>Publications</h2>
   </header>
   <section id="publications">
-    {{#each resume.publications}}
+    {% for publication in publications %}
     <section class="publication-item">
-      {{#if summary}}
-        {{#if @first}}
-        <input id="publication-item-{{@index}}" type="checkbox" class="toggle-item" checked="checked" />
-        {{else}}
-        <input id="publication-item-{{@index}}" type="checkbox" class="toggle-item" />
-        {{/if}}
-        <label for="publication-item-{{@index}}"></label>
-      {{/if}}
+      {% if publication['summary'] %}
+        {% if loop.first %}
+        <input id="publication-item-{{ loop.index }}" type="checkbox" class="toggle-item" checked="checked" />
+        {% else %}
+        <input id="publication-item-{{ loop.index }}" type="checkbox" class="toggle-item" />
+        {% endif %}
+        <label for="publication-item-{{ loop.index }}"></label>
+      {% endif %}
 
       <header class="clear">
         <div class="header-left">
-          {{#if name}}
+          {% if publication['name'] %}
           <span class="name">
-          {{#if website}}
+          {% if publication['website'] %}
           <span class="website">
-          <a target="_blank" href="{{website}}">{{name}}</a>
+          <a target="_blank" href="{{ publication['website'] }}">{{ publication['name'] }}</a>
           </span>
-          {{else}}
-          {{name}}
-          {{/if}}
+          {% else %}
+          {{ publication['name'] }}
+          {% endif %}
           </span>
-          {{/if}}
-          {{#if publisher}}
+          {% endif %}
+          {% if publication['publisher'] %}
           <span class="publisher">
-          in {{publisher}}
+          in {{ publication['publisher'] }}
           </span>
-          {{/if}}
+          {% endif %}
         </div>
-        {{#if releaseDate}}
+        {% if publication['releaseDate'] %}
         <span class="date">
-        {{DMY releaseDate}}
+        {{ publication['releaseDate'] | format_date("%d %b %Y") }}
         </span>
-        {{/if}}
+        {% endif %}
       </header>
-      {{#if keywords.length}}
+      {% if publication['keywords'] %}
       <ul class="keywords">
-        {{#each keywords}}
-        <li>{{.}}</li>
-        {{/each}}
+        {% for keyword in publication['keywords'] %}
+        <li>{{ keyword }}</li>
+        {% endfor %}
       </ul>
-      {{/if}}
+      {% endif %}
 
       <div class="item">  
-        {{#if summary}}
-          <div class="summary">{{paragraphSplit summary}}</div>
-        {{/if}}
+        {% if publication['summary'] %}
+          <div class="summary">{{ publication['summary'] | replace("\r\n", "<br>") | replace("\n", "<br>") | replace("\r", "<br>") }}</div>
+        {% endif %}
       </div>
     </section>
-    {{/each}}
+    {% endfor %}
   </section>
 </section>
-{{/if}}
+{% endif %}
